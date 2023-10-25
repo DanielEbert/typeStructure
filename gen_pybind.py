@@ -35,8 +35,12 @@ def members_to_pybind_code(classname: str, members: list[Member]) -> str:
     ret = []
 
     for member in members:
-        ret.append(
-            f'        .def("{member.member_name}", &{classname}::{member.member_name})')
+        if member.typename.startswith('array') or member.typename.startswith('pointer'):
+            ret.append(
+                f'        .TODO_CUSTOM_HANDLING_NEEDED("{member.member_name}", &{classname}::{member.member_name})')
+        else:
+            ret.append(
+                f'        .def_readwrite("{member.member_name}", &{classname}::{member.member_name})')
 
     return '\n'.join(ret)
 
@@ -56,14 +60,12 @@ def structs_to_pybind_code(structs: list[Struct]) -> str:
     struct_pybind_codes_str = '\n'.join(struct_pybind_codes)
 
     code = f"""\
-# include <pybind11/pybind11.h>
+#include <pybind11/pybind11.h>
 
-namespace py = pybind11
+namespace py = pybind11;
 
 PYBIND11_MODULE(example, m) {{
-
 {struct_pybind_codes_str}
-
 }}
     """
 

@@ -1,3 +1,6 @@
+#ifndef C_HPP
+#define C_HPP
+
 struct NestedStruct
 {
     float nes;
@@ -11,8 +14,4 @@ struct MyStruct
     int arr[3];
 };
 
-int main(){
-    volatile MyStruct s;
-    return s.a;
-}
-
+#endif  // C_HPP
