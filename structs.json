@@ -1,0 +1,32 @@
+[
+  {
+    "typename": "NestedStruct",
+    "members": [
+      {
+        "member_name": "nes",
+        "typename": "float"
+      }
+    ]
+  },
+  {
+    "typename": "MyStruct",
+    "members": [
+      {
+        "member_name": "a",
+        "typename": "int"
+      },
+      {
+        "member_name": "b",
+        "typename": "bool"
+      },
+      {
+        "member_name": "nest",
+        "typename": "NestedStruct"
+      },
+      {
+        "member_name": "arr",
+        "typename": "array.int"
+      }
+    ]
+  }
+]

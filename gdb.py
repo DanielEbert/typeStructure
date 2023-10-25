@@ -4,6 +4,7 @@ import gdb
 
 import os
 from pprint import pprint
+import json
 
 from dataclasses import dataclass
 import dataclasses
@@ -61,4 +62,10 @@ def get_types(target_type: gdb.Type):
 target_type = gdb.lookup_type(os.getenv('TARGET_TYPE'))
 get_types(target_type)
 
-pprint([dataclasses.asdict(struct) for struct in all_structs.values()])
+serialized_structs = [dataclasses.asdict(
+    struct) for struct in all_structs.values()]
+
+pprint(serialized_structs)
+
+with open('structs.json', 'w') as f:
+    f.write(json.dumps(serialized_structs, indent=2))
